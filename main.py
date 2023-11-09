@@ -13,9 +13,10 @@ from StudentMajor import StudentMajor
 from Enrollment import Enrollment
 from Section import Section
 from PassFail import PassFail
+from LetterGrade import LetterGrade
 from Option import Option
 from Menu import Menu
-import IPython
+#import IPython
 
 
 def add(sess: Session):
@@ -317,6 +318,24 @@ def add_student_PassFail(sess):
             print("That section already has that student enrolled in it.  Try again.")
     pass_fail = PassFail(section, student, datetime.now())
     sess.add(pass_fail)
+    sess.flush()
+
+def add_student_LetterGrade(sess):
+    student: Student
+    section: Section
+    unique_student_section: bool = False
+    while not unique_student_section:
+        student = select_student(sess)
+        section = select_section(sess)
+        pk_count: int = count_student_section(sess, student, section)
+        unique_student_section = pk_count == 0
+        if not unique_student_section:
+            print("That section already has that student enrolled in it.  Try again.")
+
+    #awaiting professors response on teams to see if we need to reinforce check constraint
+    student_grade = input("Please input this students grade: ")
+    letter_grade = LetterGrade(section, student, datetime.now(), student_grade)
+    sess.add(letter_grade)
     sess.flush()
 
 
