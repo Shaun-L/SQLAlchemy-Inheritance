@@ -47,6 +47,7 @@ class Enrollment(Base):
     # names right away, which works fine for us.  I found that if I used the OO attribute
     # names, I got errors, and I'm not able to tell you why that is.  BUT, if I used the
     # table column names, that worked.  Not sure what the deep reason for that is.
+    
     __table_args__ = (UniqueConstraint("department_abbreviation", "course_number",
                                        "section_number", "section_year", "semester",
                                        "student_id", name="enrollment_uk_01"),

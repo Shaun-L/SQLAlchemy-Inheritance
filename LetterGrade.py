@@ -15,7 +15,7 @@ class LetterGrade(Enrollment):
                                                                            name="enrollment_grade_constraint"),
                                        nullable=False)
 
-    __mapper_args__ = {"polymorphic_identity": "pass_fail"}
+    __mapper_args__ = {"polymorphic_identity": "letter_grade"}
 
     def __init__(self, section, student, application_date: Date, grade: String):
         super().__init__(section, student)
@@ -24,5 +24,3 @@ class LetterGrade(Enrollment):
 
     def __str__(self):
         return f"LetterGrade Enrollment: {super().__str__()}"
-
-#5gAg$v$H
